@@ -1,7 +1,7 @@
 import {Layout} from "../components/Layout/Layout";
 
 const Home = () => (
-  <Layout showHero showFooter>
+  <Layout page="Home" showHero showFooter>
     <div className="container">
     <div className="container">
       <section className="section-title">
