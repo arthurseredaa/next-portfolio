@@ -14,7 +14,7 @@ export const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse ml-5" id="navbarSupportedContent">
           <ul className="navbar-nav">
             <li className="nav-item mr-3">
               <Link href="/portfolios" passHref>
