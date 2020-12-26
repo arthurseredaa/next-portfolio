@@ -1,7 +1,7 @@
 import { Layout } from "../../components/Layout/Layout";
 
 const Portfolio = () => (
-  <Layout>
+  <Layout page="Portfolios">
     <>
       <section className="section-title">
         <div className="px-2">

@@ -1,6 +1,6 @@
-import { Navbar } from "../shared/Navbar";
+import { Navbar } from "@/components/shared/Navbar";
 import Head from "next/head";
-import { Hero } from "../shared/Hero";
+import { Hero } from "@/components/shared/Hero";
 
 export const Layout = ({ page, showHero, showFooter, children }) => (
   <>
