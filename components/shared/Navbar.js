@@ -22,8 +22,8 @@ export const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item mr-3">
-              <Link href={"/courses"} passHref>
-                <a className="nav-link" style={router.pathname === "/courses" ? {color: "#90CAF9"} : null}>Courses</a>
+              <Link href={"/forum/topics/1"} passHref>
+                <a className="nav-link" style={router.pathname === "/forum/topics" ? {color: "#90CAF9"} : null}>Forum</a>
               </Link>
             </li>
             <li className="nav-item mr-3">
