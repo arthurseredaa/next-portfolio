@@ -17,8 +17,8 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav">
             <li className="nav-item mr-3">
-              <Link href="/portfolio" passHref>
-                <a className='nav-link' style={router.pathname === "/portfolio" ? {color: "#90CAF9"} : null}>Portfolio</a>
+              <Link href="/portfolios" passHref>
+                <a className='nav-link' style={router.pathname === "/portfolios" ? {color: "#90CAF9"} : null}>Portfolios</a>
               </Link>
             </li>
             <li className="nav-item mr-3">

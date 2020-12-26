@@ -1,10 +1,8 @@
-import { Navbar } from "../components/Navbar";
+import { Layout } from "../../components/Layout/Layout";
 
-const Portfolio = () => {
-  return (
+const Portfolio = () => (
+  <Layout>
     <>
-    <Navbar />
-    <div className="container">
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">
@@ -64,9 +62,8 @@ const Portfolio = () => {
       <a href="" className="btn btn-main bg-blue ttu">
         See More Portfolios
       </a>
-    </div>
     </>
-  );
-};
+  </Layout>
+);
 
 export default Portfolio;
