@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from 'next/image';
 
 export const Hero = () => (
   <section className="fj-hero">
@@ -21,12 +22,9 @@ export const Hero = () => (
         </div>
       </div>
       <div className="hero-right col-md-6">
-        <div className="hero-image-container">
+        <div className="hero-image-container" style={{overflow: "hidden", borderRadius: "50%", height: "300px", width: "300px"}}>
           <a className="grow hero-link">
-            <img
-              className="hero-image"
-              src="https://i.udemycdn.com/course/750x422/1652608_662b_8.jpg"
-            ></img>
+            <Image src="/hero-avatar.jpg" width="300px" height="300px" alt="Author avatar" />
           </a>
         </div>
       </div>
