@@ -1,7 +1,6 @@
 import { Layout } from "../../../components/Layout/Layout";
 
 const Categories = (props) => {
-  console.log(props.data)
   return <Layout page="Forum">
     <>
       <section className="section-title">
@@ -62,12 +61,6 @@ const Categories = (props) => {
       </section>
     </>
   </Layout>
-};
-
-Categories.getInitialProps = () => {
-  return {
-      data: "test data",
-  };
 };
 
 export default Categories;

@@ -199,6 +199,19 @@ html {
 
   &-wrapper {
     background-color: $black-navigation;
+    // position: fixed;
+    // top: 0;
+    // width: 100%;
+    // z-index: 1000;
+  }
+}
+
+@media(max-width: 990px) {
+  .navbar-wrapper {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
   }
 }
 
