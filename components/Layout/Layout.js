@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/shared/Navbar";
+import { AppNavbar } from "@/components/shared/Navbar";
 import Head from "next/head";
 import { Hero } from "@/components/shared/Hero";
 
@@ -7,7 +7,7 @@ export const Layout = ({ page, showHero, showFooter, children }) => (
     <Head>
       <title>{page} | arthurseredaa</title>
     </Head>
-    <Navbar />
+    <AppNavbar />
     {showHero && <Hero />}
     <div className="container">{children}</div>
     {showFooter && (
