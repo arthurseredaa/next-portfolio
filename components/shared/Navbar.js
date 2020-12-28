@@ -65,7 +65,6 @@ export const AppNavbar = () => {
             <ButtonGroup>
               <Link href={"/register"} passHref>
                 <Button
-                  variant="dark"
                   style={
                     router.pathname === "/login" ? { color: "#000" } : null
                   }
@@ -75,7 +74,7 @@ export const AppNavbar = () => {
               </Link>
               <Link href={"/login"} passHref>
                 <Button
-                  variant="link"
+                  variant="dark"
                   style={
                     router.pathname === "/login" ? { color: "#000" } : null
                   }
