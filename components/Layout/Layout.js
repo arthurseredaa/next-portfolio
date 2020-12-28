@@ -5,7 +5,7 @@ import { Hero } from "@/components/shared/Hero";
 export const Layout = ({ page, showHero, showFooter, children }) => (
   <>
     <Head>
-      <title>{page} | .arthurseredaa</title>
+      <title>{page} | arthurseredaa</title>
     </Head>
     <Navbar />
     {showHero && <Hero />}
