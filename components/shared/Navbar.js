@@ -11,16 +11,15 @@ export const AppNavbar = () => {
     <div className="navbar-wrapper">
       <Navbar bg="black" expand="lg" className="navbar-dark fj-mw9">
         <Link href="/" passHref>
-          <Navbar.Brand className="navbar-brand mr-3 font-weight-bold">
+          <Navbar.Brand style={{outline: "none"}} className="navbar-brand mr-3 font-weight-bold">
             .arthurseredaa
           </Navbar.Brand>
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle style={{outline: "none"}} aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
-            <Link href="/portfolios" passHref>
-              <a
-                className="nav-link"
+          <Nav className="mr-auto">
+            <Link href={"/portfolios"} passHref>
+              <Nav.Link
                 style={
                   router.pathname === "/portfolios"
                     ? { color: "#90CAF9" }
@@ -28,11 +27,10 @@ export const AppNavbar = () => {
                 }
               >
                 Portfolios
-              </a>
+              </Nav.Link>
             </Link>
             <Link href={"/forum/categories"} passHref>
-              <a
-                className="nav-link"
+              <Nav.Link
                 style={
                   router.pathname === "/forum/categories"
                     ? { color: "#90CAF9" }
@@ -40,49 +38,41 @@ export const AppNavbar = () => {
                 }
               >
                 Forum
-              </a>
+              </Nav.Link>
             </Link>
             <Link href={"/cv"} passHref>
-              <a
+              <Nav.Link
                 className="nav-link"
-                style={
-                  router.pathname === "/cv" ? { color: "#90CAF9" } : null
-                }
+                style={router.pathname === "/cv" ? { color: "#90CAF9" } : null}
               >
-                CV
-              </a>
+                Cv
+              </Nav.Link>
             </Link>
             <Link href={"/ask-me"} passHref>
-              <a
+              <Nav.Link
                 className="nav-link mr-3"
                 style={
                   router.pathname === "/ask-me" ? { color: "#90CAF9" } : null
                 }
               >
                 Ask me
-              </a>
+              </Nav.Link>
             </Link>
-            <ButtonGroup>
-              <Link href={"/register"} passHref>
-                <Button
-                  style={
-                    router.pathname === "/login" ? { color: "#000" } : null
-                  }
-                >
-                  Sign Up
-                </Button>
-              </Link>
-              <Link href={"/login"} passHref>
-                <Button
-                  variant="dark"
-                  style={
-                    router.pathname === "/login" ? { color: "#000" } : null
-                  }
-                >
-                  Sign In
-                </Button>
-              </Link>
-            </ButtonGroup>
+          </Nav>
+          <Nav>
+            <Link href={"/register"} passHref>
+              <Nav.Link
+               className="nav-link mr-3"
+                style={router.pathname === "/login" ? { color: "#000" } : null}
+              >
+                Sign Up
+              </Nav.Link>
+            </Link>
+            <Link href={"/login"} passHref>
+              <Nav.Link className="btn btn-success bright bg-green-2">
+                Sign In
+              </Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
