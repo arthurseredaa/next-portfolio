@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Button } from "react-bootstrap";
-import { Layout } from "../../components/Layout/Layout";
-import { PortfolioCard } from "../../components/portfolios/PortfolioCard";
+import { Layout } from "@/components/Layout/Layout";
+import { PortfolioCard } from "@/components/portfolios/PortfolioCard";
+import React from "react";
 
 const fetchPortfolios = () => {
   const query = `query Portfolios {
@@ -11,7 +11,9 @@ const fetchPortfolios = () => {
       company,
       companyWebsite,
       jobTitle,
-      description
+      description,
+      startDate,
+      endDate,
     }
   }`;
 
@@ -33,7 +35,11 @@ const Portfolio = ({portfolios}) => (
       <section className="pb-5">
         <div className="row">
           {
-            portfolios.map(item => <PortfolioCard {...item} />)
+            portfolios.map(item => {
+              return <React.Fragment key={item._id}>
+                <PortfolioCard {...item} />
+              </React.Fragment>
+            })
           }
         </div>
       </section>
