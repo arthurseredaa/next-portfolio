@@ -11,37 +11,38 @@ const handle = app.getRequestHandler();
 const data = {
   portfolios: [
     {
-      _id: "0",
-      title: "Job in Kyiv",
-      content: "It was very nice experience",
-      jobType: "React developer",
-      daysOfExperience: 100,
-      isCurrentlyEmployed: true,
+      _id: "sad87da79",
+      title: 'Job in Netcentric',
+      company: 'Netcentric',
+      companyWebsite: 'www.google.com',
+      location: 'Spain, Barcelona',
+      jobTitle: 'Engineer',
+      description: 'Doing something, programing....',
+      startDate: '01/01/2014',
+      endDate: '01/01/2016'
     },
     {
-      _id: "1",
-      title: "Job in USA",
-      content: "Sushis my love <3",
-      jobType: "Sushi chef",
-      daysOfExperience: 10,
-      isCurrentlyEmployed: false,
+      _id: "da789ad1",
+      title: 'Job in Siemens',
+      company: 'Siemens',
+      companyWebsite: 'www.google.com',
+      location: 'Slovakia, Kosice',
+      jobTitle: 'Software Engineer',
+      description: 'Responsoble for parsing framework for JSON medical data.',
+      startDate: '01/01/2011',
+      endDate: '01/01/2013'
     },
     {
-      _id: "2",
-      title: "Job in China",
-      content: "It was very nice experience",
-      jobType: "Guitar",
-      daysOfExperience: 50,
-      isCurrentlyEmployed: false,
-    },
-    {
-      _id: "3",
-      title: "Job in Germany",
-      content: "It was nice experience",
-      jobType: "Manager",
-      daysOfExperience: 0,
-      isCurrentlyEmployed: false,
-    },
+      _id: "sadcxv9",
+      title: 'Work in USA',
+      company: 'WhoKnows',
+      companyWebsite: 'www.google.com',
+      location: 'USA, Montana',
+      jobTitle: 'Housekeeping',
+      description: 'So much responsibility....Overloaaaaaad',
+      startDate: '01/01/2010',
+      endDate: '01/01/2011'
+    }
   ]
 }
 
@@ -50,12 +51,15 @@ app.prepare().then(() => {
 
   const schema = buildSchema(`
       type Portfolio {
-        _id: ID!,
-        title: String!,
-        content: String!,
-        jobType: String!,
-        daisOfExperience: Int,
-        isCurrentlyEmployed: Boolean
+        _id: ID!
+        title: String
+        company: String
+        companyWebsite: String
+        location: String
+        jobTitle: String
+        description: String
+        startDate: String
+        endDate: String
       },
       type Query {
         hello: String
