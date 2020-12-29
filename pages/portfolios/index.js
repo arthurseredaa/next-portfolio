@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import { Layout } from "../../components/Layout/Layout";
-import { PortfolioCard } from "../../components/PortfolioCard/PortfolioCard";
+import { PortfolioCard } from "../../components/portfolios/PortfolioCard";
 
 const fetchPortfolios = () => {
   const query = `query Portfolios {
