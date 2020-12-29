@@ -10,7 +10,6 @@ export const PortfolioCard = ({title, company, companyWebsite, jobTitle, descrip
       </div>
       <div className="card-footer no-border">
         <small className="text-muted">
-            {/* <a target="_blank" href={`http://${companyWebsite}`}>{company}</a> */}
             {startDate} - {endDate}
         </small>
       </div>
