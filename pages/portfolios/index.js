@@ -17,7 +17,9 @@ const fetchPortfolios = () => {
     }
   }`;
 
-  return axios.post("http://localhost:3000/graphql", {query})
+  return axios.post("http://localhost:3000/graphql", {
+    "Access-Control-Allow-Origin": "https://arthurseredaa.vercel.app/",
+  },{query})
     .then(({data}) => data.data)
     .then(data => data.portfolios)
 }
