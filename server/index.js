@@ -40,6 +40,7 @@ app.prepare().then(() => {
   );
 
   server.all("*", (req, res) => {
+    // res.header("Access-Control-Allow-Origin", "*");
     return handle(req, res);
   });
 
