@@ -30,13 +30,6 @@ app.prepare().then(() => {
     ...portfolioResolvers
   };
 
-  server.use((req, res, next) => {
-    req.header("Access-Control-Allow-Origin", "*");
-    req.header("Access-Control-Allow-Methods", "GET, PUT, POST");
-    req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  })
-
   server.use(
     "/graphql",
     graphqlHTTP({
