@@ -4,6 +4,28 @@ import { PortfolioCard } from "@/components/portfolios/PortfolioCard";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
+const graphUpdatePortfolio = (id) => {
+  const query = `
+    mutation UpdatePortfolio {
+      updatePortfolio(id: "${id}", input: {title: "Updated title", jobTitle: "Updated jobTitle"}) {
+        _id,
+        title,
+        company,
+        companyWebsite
+        location
+        jobTitle
+        description
+        startDate
+        endDate
+      }
+    }
+  `;
+  return axios
+    .post("http://localhost:3000/graphql", { query })
+    .then(({ data: fromGraph }) => fromGraph.data)
+    .then((data) => data.updatePortfolio);
+};
+
 const graphCreatePortfolio = () => {
   const query = `
     mutation CreatePortfolio {
@@ -28,10 +50,11 @@ const graphCreatePortfolio = () => {
         endDate
       }
     }`;
-  return axios.post('http://localhost:3000/graphql', { query })
-    .then(({data: graph}) => graph.data)
-    .then(data => data.createPortfolio)
-}
+  return axios
+    .post("http://localhost:3000/graphql", { query })
+    .then(({ data: fromGraph }) => fromGraph.data)
+    .then((data) => data.createPortfolio);
+};
 
 const fetchPortfolios = () => {
   const query = `query Portfolios {
@@ -55,16 +78,24 @@ const fetchPortfolios = () => {
         Host: "arthurseredaa.vercel.app",
       }
     )
-    .then(({ data }) => data.data)
+    .then(({ data: fromGraph }) => fromGraph.data)
     .then((data) => data.portfolios);
 };
 
 const Portfolio = ({ portfolios }) => {
-  const [state, setState] = useState(portfolios)
+  const [state, setState] = useState(portfolios);
 
   const createPortfolio = async () => {
     const newPortfolio = await graphCreatePortfolio();
     const newPortfolios = [...state, newPortfolio];
+    setState(newPortfolios);
+  };
+
+  const updatePortfolio = async (id) => {
+    const updatedPortfolio = await graphUpdatePortfolio(id);
+    const index = state.findIndex(p => p._id === id);
+    const newPortfolios = state.slice();
+    newPortfolios[index] = updatedPortfolio;
     setState(newPortfolios);
   }
 
@@ -85,6 +116,9 @@ const Portfolio = ({ portfolios }) => {
               return (
                 <React.Fragment key={item._id}>
                   <PortfolioCard {...item} />
+                  <Button variant="warning" onClick={() => updatePortfolio(item._id)}>
+                    Update
+                  </Button>
                 </React.Fragment>
               );
             })}

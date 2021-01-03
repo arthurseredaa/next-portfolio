@@ -54,7 +54,6 @@ exports.portfolioMutations = {
     const oldPortfolio = data.portfolios[index]
     const newPortfolio = {...oldPortfolio, ...input};
     data.portfolios[index] = newPortfolio;
-
     return newPortfolio
   }
 }
