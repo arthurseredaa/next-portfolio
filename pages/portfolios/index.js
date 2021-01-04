@@ -4,7 +4,19 @@ import { PortfolioCard } from "@/components/portfolios/PortfolioCard";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
-const graphUpdatePortfolio = (id) => {
+const graphDeletePortfolio = id => {
+  const query = `
+    mutation DeletePortfolio {
+      deletePortfolio(id: "${id}")
+    }
+  `;
+
+  return axios.post("http://localhost:3000/graphql", { query })
+    .then(({data: fromGraph}) => fromGraph.data)
+    .then(data => data.deletePortfolio)
+}
+
+const graphUpdatePortfolio = id => {
   const query = `
     mutation UpdatePortfolio {
       updatePortfolio(id: "${id}", input: {title: "Updated title", jobTitle: "Updated jobTitle"}) {
@@ -99,6 +111,14 @@ const Portfolio = ({ portfolios }) => {
     setState(newPortfolios);
   }
 
+  const deletePortfolio = async (id) => {
+    const deletedId = await graphDeletePortfolio(id);
+    const index = state.findIndex(p => p._id === deletedId);
+    const newPortfolios = state.slice();
+    newPortfolios.splice(index, 1);
+    setState(newPortfolios);
+  }
+
   return (
     <Layout page="Portfolios">
       <>
@@ -108,17 +128,14 @@ const Portfolio = ({ portfolios }) => {
               <h1>Portfolios</h1>
             </div>
           </div>
-          <Button onClick={createPortfolio}>Add portfolio</Button>
+          <Button onClick={createPortfolio} variant="outline-success">Add portfolio</Button>
         </section>
         <section className="pb-5">
           <div className="row">
             {state.map((item) => {
               return (
                 <React.Fragment key={item._id}>
-                  <PortfolioCard {...item} />
-                  <Button variant="warning" onClick={() => updatePortfolio(item._id)}>
-                    Update
-                  </Button>
+                  <PortfolioCard {...item} updatePortfolio={updatePortfolio} deletePortfolio={deletePortfolio} />
                 </React.Fragment>
               );
             })}

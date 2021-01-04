@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button, Card } from "react-bootstrap";
 
 export const PortfolioCard = ({
   title,
@@ -9,10 +10,12 @@ export const PortfolioCard = ({
   startDate,
   endDate,
   _id,
+  updatePortfolio,
+  deletePortfolio,
 }) => (
-  <Link href={`/portfolios/[id]`} as={`/portfolios/${_id}`}>
-    <div className="col-md-4">
-      <div className="card subtle-shadow no-border">
+  <div className="col-md-4" style={{margin: "20px 0"}}>
+    <Link href={`/portfolios/[id]`} as={`/portfolios/${_id}`}>
+      <div className="card subtle-shadow no-border" style={{minHeight: "20vh"}}>
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           <h6 className="card-subtitle mb-2 text-muted">
@@ -26,6 +29,14 @@ export const PortfolioCard = ({
           </small>
         </div>
       </div>
+    </Link>
+    <div style={{display: "flex", justifyContent: "space-between", marginTop: "10px"}}>
+    <Button variant="warning" onClick={() => updatePortfolio(_id)}>
+      Update
+    </Button>
+    <Button variant="danger" onClick={() => deletePortfolio(_id)}>
+      Delete
+    </Button>
     </div>
-  </Link>
+  </div>
 );
