@@ -1,12 +1,10 @@
 import axios from "axios";
 import { Layout } from "@/components/Layout/Layout";
 import { PortfolioCard } from "@/components/portfolios/PortfolioCard";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { CREATE_PORTFOLIO, GET_PORTFOLIOS, DELETE_PORTFOLIO, UPDATE_PORTFOLIO } from "../../apollo/queries";
-import { Preloader } from "@/components/Preloader/Preloader";
-import { showErrorMessage } from "../../helpers/notifications";
 import withApollo from "@/hoc/withApollo";
 import { getDataFromTree } from '@apollo/react-ssr';
 
@@ -45,8 +43,9 @@ const graphUpdatePortfolio = id => {
 };
 
 const Portfolio = () => {
-  const [portfolios, setPortfolios] = useState([]);
-  const [getPortfolios, {loading, data, error}] = useLazyQuery(GET_PORTFOLIOS);
+
+  const {data} = useQuery(GET_PORTFOLIOS);
+
   const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {update: (cache) => {
     const {portfolios} = cache.readQuery({query: GET_PORTFOLIOS});
     cache.writeQuery({
@@ -54,22 +53,6 @@ const Portfolio = () => {
       data: {portfolios: [...portfolios, createPortfolio]}
     })
   }})
-
-  useEffect(() => {
-    let isMounted = true;
-
-    if(isMounted) getPortfolios()
-
-    return () => isMounted = false;
-  }, [getPortfolios])
-
-  if(data && data.portfolios.length > 0 && (portfolios.length === 0 || portfolios.length !== data.portfolios.length)) {
-    setPortfolios(data.portfolios)
-  }
-
-  if(loading || !portfolios) return <Preloader />
-
-  if(error) showErrorMessage(error.message)
 
   const updatePortfolio = async (id) => {
     const updatedPortfolio = await graphUpdatePortfolio(id);
@@ -102,7 +85,7 @@ const Portfolio = () => {
         </section>
         <section className="pb-5">
           <div className="row">
-            {portfolios.map((item) => {
+            {data && data.portfolios.map((item) => {
               return (
                 <React.Fragment key={item._id}>
                   <PortfolioCard

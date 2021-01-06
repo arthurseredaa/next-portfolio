@@ -1,28 +1,11 @@
 import { Layout } from "@/components/Layout/Layout";
-import { useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_PORTFOLIO } from "@/apollo/queries";
-import { Preloader } from "@/components/Preloader/Preloader";
-import { showErrorMessage } from "../../helpers/notifications";
-import { useEffect, useState } from "react";
 import withApollo from "@/hoc/withApollo";
 import { getDataFromTree } from '@apollo/react-ssr';
 
 const PortfolioDetail = ({ query }) => {
-  const [portfolio, setPortfolio] = useState(null)
-  const [ getPortfolio, {loading, data, error}] = useLazyQuery(GET_PORTFOLIO);
-
-  useEffect(() => {
-    let isMounted = true;
-    if(isMounted) getPortfolio({variables: {id: query.id}});
-
-    return () => isMounted = false;
-  }, [])
-
-  if(data && !portfolio) setPortfolio(data.portfolio);
-
-  if (loading || !portfolio) return <Preloader />;
-
-  if (error) showErrorMessage(error.message)
+  const {data} = useQuery(GET_PORTFOLIO, {variables: {id: query.id}});
 
   const {
     title,
@@ -32,7 +15,7 @@ const PortfolioDetail = ({ query }) => {
     startDate,
     endDate,
     description
-  } = portfolio && portfolio;
+  } = data && data.portfolio || {};
 
   return (
     <Layout page="Portfolio">
@@ -81,10 +64,6 @@ const PortfolioDetail = ({ query }) => {
   );
 };
 
-PortfolioDetail.getInitialProps = async ({ query }) => {
-  return {
-    query,
-  };
-};
+PortfolioDetail.getInitialProps = async ({ query }) => ({query})
 
 export default withApollo(PortfolioDetail, {getDataFromTree});
