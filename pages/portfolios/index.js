@@ -7,6 +7,8 @@ import { useLazyQuery, useMutation } from "@apollo/client";
 import { CREATE_PORTFOLIO, GET_PORTFOLIOS, DELETE_PORTFOLIO, UPDATE_PORTFOLIO } from "../../apollo/queries";
 import { Preloader } from "@/components/Preloader/Preloader";
 import { showErrorMessage } from "../../helpers/notifications";
+import withApollo from "@/hoc/withApollo";
+import { getDataFromTree } from '@apollo/react-ssr';
 
 const graphDeletePortfolio = id => {
   const query = `
@@ -54,8 +56,12 @@ const Portfolio = () => {
   }})
 
   useEffect(() => {
-    getPortfolios();
-  }, [])
+    let isMounted = true;
+
+    if(isMounted) getPortfolios()
+
+    return () => isMounted = false;
+  }, [getPortfolios])
 
   if(data && data.portfolios.length > 0 && (portfolios.length === 0 || portfolios.length !== data.portfolios.length)) {
     setPortfolios(data.portfolios)
@@ -117,4 +123,4 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+export default withApollo(Portfolio, {getDataFromTree});
