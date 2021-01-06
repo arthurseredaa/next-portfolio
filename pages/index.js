@@ -1,4 +1,5 @@
 import {Layout} from "../components/Layout/Layout";
+import { Preloader } from "../components/Preloader/Preloader";
 
 const Home = () => (
   <Layout page="Home" showHero showFooter>

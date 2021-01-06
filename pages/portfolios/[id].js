@@ -1,31 +1,34 @@
-import axios from "axios";
-import {Layout} from "@/components/Layout/Layout";
+import { Layout } from "@/components/Layout/Layout";
+import { useLazyQuery } from "@apollo/client";
+import { GET_PORTFOLIO } from "@/apollo/queries";
+import { Preloader } from "@/components/Preloader/Preloader";
+import { showErrorMessage } from "../../helpers/notifications";
+import { Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
 
-const fetchPortfolioById = (id) => {
-  const query = `query Portfolio($id: ID) {
-    portfolio(id: $id) {
-      _id,
-      title,
-      company,
-      companyWebsite,
-      jobTitle,
-      description,
-      startDate,
-      endDate,
-      location
-    }
-  }`;
-  const variables = {id}
+const PortfolioDetail = ({ query }) => {
+  const [portfolio, setPortfolio] = useState(null)
+  const [ getPortfolio, {loading, data, error}] = useLazyQuery(GET_PORTFOLIO);
 
-  return axios
-    .post("http://localhost:3000/graphql", { query, variables })
-    .then(({ data }) => data.data)
-    .then((data) => data.portfolio)
-};
+  useEffect(() => {
+    getPortfolio({variables: {id: query.id}})
+  }, [])
 
-const PortfolioDetail = ({portfolio}) => {
+  if(data && !portfolio) setPortfolio(data.portfolio);
 
-  const {title, jobTitle, location, company, companyWebsite, description, startDate, endDate} = portfolio;
+  if (loading || !portfolio) return <Preloader />;
+
+  if (error) showErrorMessage(error.message)
+
+  const {
+    title,
+    jobTitle,
+    companyWebsite,
+    location,
+    startDate,
+    endDate,
+    description
+  } = portfolio && portfolio;
 
   return (
     <Layout page="Portfolio">
@@ -35,7 +38,11 @@ const PortfolioDetail = ({portfolio}) => {
             <h1 className="display-3">{title}</h1>
             <p className="lead">{jobTitle}</p>
             <p>
-              <a className="btn btn-lg btn-success" href={companyWebsite} role="button">
+              <a
+                className="btn btn-lg btn-success"
+                href={companyWebsite}
+                role="button"
+              >
                 See Company
               </a>
             </p>
@@ -61,9 +68,7 @@ const PortfolioDetail = ({portfolio}) => {
             <div className="col-md-12">
               <hr />
               <h4 className="title">Description</h4>
-              <p>
-                {description}
-              </p>
+              <p>{description}</p>
             </div>
           </div>
         </div>
@@ -73,10 +78,8 @@ const PortfolioDetail = ({portfolio}) => {
 };
 
 PortfolioDetail.getInitialProps = async ({ query }) => {
-  const portfolio = await fetchPortfolioById(query.id);
-
   return {
-    portfolio,
+    query,
   };
 };
 
