@@ -1,11 +1,12 @@
 export const Preloader = () => (
-  <div id="load">
-    <div>G</div>
-    <div>N</div>
-    <div>I</div>
-    <div>D</div>
-    <div>A</div>
-    <div>O</div>
-    <div>L</div>
+  <div id="cube-loader">
+    <div className="caption">
+      <div className="cube-loader">
+        <div className="cube loader-1"></div>
+        <div className="cube loader-2"></div>
+        <div className="cube loader-4"></div>
+        <div className="cube loader-3"></div>
+      </div>
+    </div>
   </div>
 );
