@@ -28,9 +28,9 @@ const Portfolio = () => {
   });
 
   const [deletePortfolio, {loading: deleting, error: deleteError}] = useMutation(DELETE_PORTFOLIO, {
-    update: (cache, {data: {deletedPortfolioId}}) => {
+    update: (cache, {data: {deletePortfolio}}) => {
       const { portfolios } = cache.readQuery({ query: GET_PORTFOLIOS });
-      const newPortfolios = portfolios.filter(item => item._id !== deletedPortfolioId);
+      const newPortfolios = portfolios.filter(item => item._id !== deletePortfolio);
       cache.writeQuery({
         query: GET_PORTFOLIOS,
         data: {portfolios: newPortfolios},
