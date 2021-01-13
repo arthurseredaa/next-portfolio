@@ -1,74 +1,42 @@
-import axios from "axios";
 import { Layout } from "@/components/Layout/Layout";
 import { PortfolioCard } from "@/components/portfolios/PortfolioCard";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
-import { CREATE_PORTFOLIO, GET_PORTFOLIOS, DELETE_PORTFOLIO, UPDATE_PORTFOLIO } from "../../apollo/queries";
+import {
+  CREATE_PORTFOLIO,
+  GET_PORTFOLIOS,
+  DELETE_PORTFOLIO,
+  UPDATE_PORTFOLIO,
+} from "../../apollo/queries";
 import withApollo from "@/hoc/withApollo";
-import { getDataFromTree } from '@apollo/react-ssr';
-
-const graphDeletePortfolio = id => {
-  const query = `
-    mutation DeletePortfolio {
-      deletePortfolio(id: "${id}")
-    }
-  `;
-
-  return axios.post("http://localhost:3000/graphql", { query })
-    .then(({data: fromGraph}) => fromGraph.data)
-    .then(data => data.deletePortfolio)
-}
-
-const graphUpdatePortfolio = id => {
-  const query = `
-    mutation UpdatePortfolio {
-      updatePortfolio(id: "${id}", input: {title: "Updated title", jobTitle: "Updated jobTitle"}) {
-        _id,
-        title,
-        company,
-        companyWebsite
-        location
-        jobTitle
-        description
-        startDate
-        endDate
-      }
-    }
-  `;
-  return axios
-    .post("http://localhost:3000/graphql", { query })
-    .then(({ data: fromGraph }) => fromGraph.data)
-    .then((data) => data.updatePortfolio);
-};
+import { getDataFromTree } from "@apollo/react-ssr";
+import { Preloader } from "../../components/Preloader/Preloader";
 
 const Portfolio = () => {
+  const { data, loading } = useQuery(GET_PORTFOLIOS);
+  const [updatePortfolio] = useMutation(UPDATE_PORTFOLIO);
 
-  const {data} = useQuery(GET_PORTFOLIOS);
+  const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {
+    update: (cache) => {
+      const { portfolios } = cache.readQuery({ query: GET_PORTFOLIOS });
+      cache.writeQuery({
+        query: GET_PORTFOLIOS,
+        data: { portfolios: [...portfolios, createPortfolio] },
+      });
+    },
+  });
 
-  const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {update: (cache) => {
-    const {portfolios} = cache.readQuery({query: GET_PORTFOLIOS});
-    cache.writeQuery({
-      query: GET_PORTFOLIOS,
-      data: {portfolios: [...portfolios, createPortfolio]}
-    })
-  }})
-
-  const updatePortfolio = async (id) => {
-    const updatedPortfolio = await graphUpdatePortfolio(id);
-    const index = state.findIndex((p) => p._id === id);
-    const newPortfolios = state.slice();
-    newPortfolios[index] = updatedPortfolio;
-    setState(newPortfolios);
-  };
-
-  const deletePortfolio = async (id) => {
-    const deletedId = await graphDeletePortfolio(id);
-    const index = state.findIndex((p) => p._id === deletedId);
-    const newPortfolios = state.slice();
-    newPortfolios.splice(index, 1);
-    setState(newPortfolios);
-  };
+  const [deletePortfolio, {loading: deleting, error: deleteError}] = useMutation(DELETE_PORTFOLIO, {
+    update: (cache, {data: {deletedPortfolioId}}) => {
+      const { portfolios } = cache.readQuery({ query: GET_PORTFOLIOS });
+      const newPortfolios = portfolios.filter(item => item._id !== deletedPortfolioId);
+      cache.writeQuery({
+        query: GET_PORTFOLIOS,
+        data: {portfolios: newPortfolios},
+      })
+    }
+  })
 
   return (
     <Layout page="Portfolios">
@@ -85,17 +53,17 @@ const Portfolio = () => {
         </section>
         <section className="pb-5">
           <div className="row">
-            {data && data.portfolios.map((item) => {
-              return (
-                <React.Fragment key={item._id}>
+            {data &&
+              data.portfolios.map((item) => {
+                return (
                   <PortfolioCard
                     {...item}
+                    key={item._id}
                     updatePortfolio={updatePortfolio}
                     deletePortfolio={deletePortfolio}
                   />
-                </React.Fragment>
-              );
-            })}
+                );
+              })}
           </div>
         </section>
         <a href="" className="btn btn-main bg-blue ttu">
@@ -106,4 +74,4 @@ const Portfolio = () => {
   );
 };
 
-export default withApollo(Portfolio, {getDataFromTree});
+export default withApollo(Portfolio, { getDataFromTree });

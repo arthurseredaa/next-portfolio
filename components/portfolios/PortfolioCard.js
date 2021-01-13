@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export const PortfolioCard = ({
   title,
@@ -14,7 +14,7 @@ export const PortfolioCard = ({
   deletePortfolio,
 }) => (
   <div className="col-md-4" style={{margin: "20px 0"}}>
-    <Link href={`/portfolios/[id]`} as={`/portfolios/${_id}`}>
+    <Link href={`/portfolios/${_id}`}>
       <div className="card subtle-shadow no-border" style={{minHeight: "20vh"}}>
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
@@ -31,10 +31,10 @@ export const PortfolioCard = ({
       </div>
     </Link>
     <div style={{display: "flex", justifyContent: "space-between", marginTop: "10px"}}>
-    <Button variant="warning" onClick={() => updatePortfolio(_id)}>
+    <Button variant="warning" onClick={() => updatePortfolio({variables: {id: _id}})}>
       Update
     </Button>
-    <Button variant="danger" onClick={() => deletePortfolio(_id)}>
+    <Button variant="danger" onClick={() => deletePortfolio({variables: {id: _id}})}>
       Delete
     </Button>
     </div>
