@@ -1,5 +1,11 @@
+#mongo uri
+/server/config/dev.js
+
+#node_modules
 node_modules
 
+#next.js
 .next
 
+#vscode
 .vscode

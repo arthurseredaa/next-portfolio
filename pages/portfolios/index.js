@@ -2,7 +2,6 @@ import { Layout } from "@/components/Layout/Layout";
 import { PortfolioCard } from "@/components/portfolios/PortfolioCard";
 import React from "react";
 import { Button } from "react-bootstrap";
-import { useQuery, useMutation } from "@apollo/client";
 import withApollo from "@/hoc/withApollo";
 import { getDataFromTree } from "@apollo/react-ssr";
 import { Preloader } from "../../components/Preloader/Preloader";
@@ -13,6 +12,8 @@ const Portfolio = () => {
   const [updatePortfolio] = useUpdatePortfolio();
   const [createPortfolio] = useCreatePortfolio();
   const [deletePortfolio, {loading: deleting, error: deleteError}] = useDeletePortfolio();
+
+  if(loading) return <Preloader />
 
   return (
     <Layout page="Portfolios">
