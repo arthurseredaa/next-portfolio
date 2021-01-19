@@ -5,7 +5,8 @@ require('./models/portfolio');
 exports.init = () => {
   mongoose.connect(config.DB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   }, () => {
     console.log('>>> Connected to database');
   })
