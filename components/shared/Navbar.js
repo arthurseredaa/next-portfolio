@@ -22,6 +22,9 @@ export const AppNavbar = () => (
           <AppLink href="/portfolios" className={"nav-link"}>
             Portfolios
           </AppLink>
+          <AppLink href={"/blog"} className={"nav-link"}>
+            Blog
+          </AppLink>
           <AppLink href="/forum/categories" className={"nav-link"}>
             Forum
           </AppLink>
