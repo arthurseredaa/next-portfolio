@@ -1,0 +1,13 @@
+.post {
+  width: 45%;
+  height: 250px;
+  margin: 20px 20px;
+  border-radius: 30px;
+  padding: 20px;
+}
+
+@media (max-width: 1000px) {
+  .post {
+    width: 100%;
+  }
+}
