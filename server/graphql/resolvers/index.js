@@ -17,3 +17,9 @@ exports.portfolioMutations = {
     return deletedPortfolioId._id
   },
 };
+
+exports.userMutations = {
+  signIn: async (root, args, ctx) => ctx.models.User.signIn(),
+  signUp: async (root, args, ctx) => ctx.models.User.signUp(),
+  signOut: async (root, args, ctx) => ctx.models.User.signOut()
+}
