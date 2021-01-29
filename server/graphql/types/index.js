@@ -1,3 +1,4 @@
+// PORTFOLIO
 const portfolioFields = `
   title: String
   company: String
@@ -10,12 +11,25 @@ const portfolioFields = `
 `;
 
 exports.portfolioType = `
-type Portfolio {
-  _id: ID!
-  ${portfolioFields}
-}
+  type Portfolio {
+    _id: ID!
+    ${portfolioFields}
+  }
 
-input PortfolioInput {
-  ${portfolioFields}
-}
+  input PortfolioInput {
+    ${portfolioFields}
+  }
+`;
+
+// USER
+const userFields = `
+  login: String
+  password: String
+`;
+
+exports.userType = `
+  type User {
+    _id: ID!
+    ${userFields}
+  }
 `;
