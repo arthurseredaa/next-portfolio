@@ -9,16 +9,16 @@ const {
   userMutations,
 } = require("./resolvers");
 //types
-const { portfolioType, userType } = require("./types");
+const { portfolioTypes, userTypes } = require("./types");
 
 const { ApolloServer, gql } = require("apollo-server-express");
 
 exports.createApolloServer = () => {
   const typeDefs = gql(`
 
-  ${portfolioType}
+  ${portfolioTypes}
 
-  ${userType}
+  ${userTypes}
 
   type Query {
     hello: String,
@@ -32,7 +32,7 @@ exports.createApolloServer = () => {
     deletePortfolio(id: ID): ID,
 
     signIn: String,
-    signUp: String,
+    signUp(input: SignUpInput): String,
     signOut: String
   }
 `);
