@@ -14,8 +14,8 @@ const userSchema = new Schema({
   },
   name: {
     type: String,
-    maxlength: [30, "Maximum length is 30 chanracters"],
-    minlength: [2, "Minimum length is 2 characters"],
+    maxlength: [30, "Maximum name is 30 chanracters"],
+    minlength: [2, "Minimum name is 2 characters"],
   },
   username: {
     type: String,
@@ -32,13 +32,12 @@ const userSchema = new Schema({
   role: {
     type: String,
     enum: ["quest", "admin", "instructor"],
-    required: true,
     default: "quest",
   },
   description: {
     type: String,
-    createdAt: { type: Date, default: Date.now() },
   },
+  createdAt: { type: Date, default: Date.now() },
 });
 
 module.exports = new mongoose.model("User", userSchema);
