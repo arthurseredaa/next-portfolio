@@ -9,6 +9,11 @@ const Home = () => (
         name="google-site-verification"
         content="It9U2ezLmPVcZahCEMinFp2uIg5MNbUfJ7OWsgFPNTA"
       />
+      <meta name="title" content="Arthur Sereda Blog" />
+      <meta name="robots" content="all" />
+      <meta name="keywords" content="react reactjs javascript arthur sereda coding артур середа development" />
+      <meta name="format-detection" content="telephone=no" />
+      <meta charset="utf-8" />
     </Head>
     <Layout page="Home" showHero showFooter>
       <div className="container">
