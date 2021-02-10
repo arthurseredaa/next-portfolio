@@ -10,7 +10,7 @@ const portfolioFields = `
   endDate: String
 `;
 
-exports.portfolioType = `
+exports.portfolioTypes = `
   type Portfolio {
     _id: ID!
     ${portfolioFields}
@@ -22,14 +22,14 @@ exports.portfolioType = `
 `;
 
 // USER
-const userFields = `
-  login: String
-  password: String
-`;
 
-exports.userType = `
-  type User {
-    _id: ID!
-    ${userFields}
+exports.userTypes = `
+  input SignUpInput {
+    avatar: String
+    email: String!
+    name: String
+    username: String!
+    password: String!
+    passwordConfirmation: String!
   }
 `;
