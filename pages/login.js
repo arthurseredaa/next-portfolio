@@ -1,11 +1,11 @@
 import { Layout } from "../components/Layout/Layout";
 
 const Login = () => (
-  <Layout page="Login">
+  <Layout page="Sign in">
       <div className="bwm-form mt-5">
         <div className="row">
           <div className="col-md-5 mx-auto">
-            <h1 className="page-title">Login</h1>
+            <h1 className="page-title">Sign in</h1>
             <form>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
