@@ -8,7 +8,7 @@ class User {
   signUp = (data) => {
     const {password, passwordConfirmation} = data
 
-    if(password !== passwordConfirmation) throw new Error('Password do not match!')
+    if(password !== passwordConfirmation) throw new Error('Passwords do not match!')
 
     return this.Model.create(data);
   };
