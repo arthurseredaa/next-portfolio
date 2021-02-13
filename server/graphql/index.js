@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { ApolloServer, gql } = require("apollo-server-express");
+
 //GraphQL Models
 const Portfolio = require("./models/Portfolio");
 const User = require("./models/User");
@@ -10,8 +12,8 @@ const {
 } = require("./resolvers");
 //types
 const { portfolioTypes, userTypes } = require("./types");
-
-const { ApolloServer, gql } = require("apollo-server-express");
+// Authentication context
+const {createAuthContext} = require('./context')
 
 exports.createApolloServer = () => {
   const typeDefs = gql(`
@@ -31,7 +33,7 @@ exports.createApolloServer = () => {
     updatePortfolio(id: ID, input: PortfolioInput): Portfolio,
     deletePortfolio(id: ID): ID,
 
-    signIn: String,
+    signIn(input: SignInInput): String,
     signUp(input: SignUpInput): String,
     signOut: String
   }
@@ -46,6 +48,7 @@ exports.createApolloServer = () => {
     typeDefs,
     resolvers,
     context: () => ({
+      ...createAuthContext(),
       models: {
         Portfolio: new Portfolio(mongoose.model("Portfolio")),
         User: new User(mongoose.model("User")),
