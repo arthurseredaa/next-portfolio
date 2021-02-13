@@ -3,7 +3,13 @@ class User {
     this.Model = model;
   }
 
-  signIn = () => "Sign in";
+  signIn = ({email, password}, ctx) => {
+    const isAuth = ctx.authenticate({email, password});
+
+    if(isAuth) console.log(`U are authenticated, ${email}! | User model`);
+
+    return `Nice | User model`
+  };
 
   signUp = (data) => {
     const {password, passwordConfirmation} = data
